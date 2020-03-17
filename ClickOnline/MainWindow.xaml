@@ -1,0 +1,153 @@
+﻿<Controls:MetroWindow x:Class="ClickOnline.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Click Online"  Height="450" Width="800" WindowState="Maximized">
+    <Grid>
+     
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+       
+            <Controls:Tile Grid.Row="0" Grid.Column="0" x:Name="mahInvoice" Title="Orders" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahInvoice_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_cart}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+            <Controls:Tile Grid.Row="0" Grid.Column="1" x:Name="mahPurchase" Title="Purchase" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahPurchase_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_money}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+            <Controls:Tile Grid.Row="0" Grid.Column="2" x:Name="mahAdjustment" Title="Adjustment" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahAdjustment_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_math_plus_minus}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Controls:Tile Grid.Row="0" Grid.Column="0" x:Name="mahTileProduct" Title="Products" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahTileProduct_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_clothes_shirt}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+            <Controls:Tile Grid.Row="0" Grid.Column="1"  x:Name="mahTileCategory" Title="Categories"   VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahTileCategory_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_list}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+
+            <Controls:Tile Grid.Row="0" Grid.Column="2"  x:Name="mahTileSupplier" Title="Supplier"   VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahTileSupplier_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_truck}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+
+            <Controls:Tile Grid.Row="0" Grid.Column="3"  x:Name="mahTileSize" Title="Size" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahTileSize_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_text_size}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+            
+            <Controls:Tile Grid.Row="0" Grid.Column="4"  x:Name="mahExit" Title="EXIT" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="mahTileSize_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_door_leave}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+
+
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Controls:Tile Grid.Row="0" Grid.Column="0" x:Name="mahInventory" Title="Inventory Report" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="MahInventory_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_list}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+
+            <Controls:Tile Grid.Row="0" Grid.Column="1" x:Name="mahSales" Title="Orders Report" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="MahSales_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_money}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>
+
+            <!--<Controls:Tile Grid.Row="0" Grid.Column="2" x:Name="mahPurchases" Title="Orders Report" VerticalAlignment="Center"  HorizontalAlignment="Center" Click="MahPurchases_Click">
+                <Rectangle Fill="White" Height="45" Width="50">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_money}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Controls:Tile>-->
+
+        </Grid>
+        
+    </Grid>
+</Controls:MetroWindow>

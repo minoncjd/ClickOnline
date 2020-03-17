@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d028706e52e849e6bdd5bda57135603c" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="ClickOnlineModel.Category" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Product" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Purchase" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="ClickOnlineModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Size" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Supplier" Width="1.5" PointX="0.75" PointY="10.25" />
+        <AssociationConnector Association="ClickOnlineModel.FK_Product_Category" />
+        <AssociationConnector Association="ClickOnlineModel.FK_Product_Size" />
+        <AssociationConnector Association="ClickOnlineModel.FK_PurchaseDetails_Product" />
+        <AssociationConnector Association="ClickOnlineModel.FK_Purchase_Supplier" />
+        <AssociationConnector Association="ClickOnlineModel.FK_PurchaseDetails_Purchase" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Order" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="ClickOnlineModel.OrderDetail" Width="1.5" PointX="8.25" PointY="2.75" />
+        <AssociationConnector Association="ClickOnlineModel.FK_OrderDetails_Orders" />
+        <AssociationConnector Association="ClickOnlineModel.FK_OrderDetails_PurchaseDetails" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Location" Width="1.5" PointX="7.375" PointY="6.875" />
+        <AssociationConnector Association="ClickOnlineModel.FK_PurchaseDetails_Location" />
+        <EntityTypeShape EntityType="ClickOnlineModel.Adjustment" Width="1.5" PointX="7.5" PointY="10.125" />
+        <AssociationConnector Association="ClickOnlineModel.FK_Adjustment_PurchaseDetails" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
