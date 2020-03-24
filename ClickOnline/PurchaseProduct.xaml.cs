@@ -44,7 +44,7 @@ namespace ClickOnline
             {
                 ProductViewModel product = new ProductViewModel();
                 product.ProductID = x.ProductID;
-                product.ProductName = x.ProductName + " - " + x.Color + " - " + x.ProductSize;
+                product.ProductName = x.ProductName + " - " + x.Color + " - " + x.Size;
                 lProductViewModel.Add(product);
             }
 
@@ -91,7 +91,6 @@ namespace ClickOnline
                     purchase.ProductName = product.ProductName;
                     purchase.Category = product.Category.ProductCategory;
                     purchase.Color = product.Color;
-                    purchase.Size = product.Size.ProductSize;
                     purchase.Price = product.PurchasePrice;
                     purchase.Total = Convert.ToInt32(tbQuantity.Text) * product.PurchasePrice;
                     purchase.Quantity = Convert.ToInt32(tbQuantity.Text);

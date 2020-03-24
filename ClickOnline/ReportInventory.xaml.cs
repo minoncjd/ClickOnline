@@ -38,7 +38,7 @@ namespace ClickOnline
             {
                 ProductViewModel product = new ProductViewModel();
                 product.ProductID = x.ProductID;
-                product.ProductName = x.ProductName + " - " + x.Color + " - " + x.ProductSize;
+                product.ProductName = x.ProductName + " - " + x.Color + " - " + x.Size;
                 lProductViewModel.Add(product);
             }
 

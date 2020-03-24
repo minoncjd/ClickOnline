@@ -39,7 +39,6 @@ namespace ClickOnline
                     x.ProductName = tbName.Text;
                     x.Color = tbColor.Text;
                     x.CategoryID = Convert.ToInt32(cbCategory.SelectedValue);
-                    x.SizeID = Convert.ToInt32(cbSize.SelectedValue);
                     x.SellingPrice = Convert.ToInt32(tbSellingPrize.Text);
                     x.PurchasePrice = Convert.ToInt32(tbPurchasePrize.Text);
                     db.Products.Add(x);

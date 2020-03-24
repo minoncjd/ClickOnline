@@ -161,7 +161,13 @@
     <Compile Include="Model\GetOrders_Result.cs">
       <DependentUpon>ClickOnlineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\GetProducts_Result.cs">
+      <DependentUpon>ClickOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\GetPurchases_Result.cs">
+      <DependentUpon>ClickOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Inventory.cs">
       <DependentUpon>ClickOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Location.cs">
@@ -177,6 +183,9 @@
     <Compile Include="Model\PurchaseViewModel.cs" />
     <Compile Include="PrintWindow.xaml.cs">
       <DependentUpon>PrintWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanAndGo.xaml.cs">
+      <DependentUpon>ScanAndGo.xaml</DependentUpon>
     </Compile>
     <Compile Include="PurchaseProduct.xaml.cs">
       <DependentUpon>PurchaseProduct.xaml</DependentUpon>
@@ -196,12 +205,6 @@
     <Compile Include="ReportInventory.xaml.cs">
       <DependentUpon>ReportInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Sales - Copy.cs">
-      <DependentUpon>Sales - Copy.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Reports\Sales.cs">
       <DependentUpon>Sales.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -213,13 +216,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InventoryReport.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SizeAdd.xaml.cs">
-      <DependentUpon>SizeAdd.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\SizeViewModel.cs" />
-    <Compile Include="Sizes.xaml.cs">
-      <DependentUpon>Sizes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Size.cs">
       <DependentUpon>ClickOnlineModel.tt</DependentUpon>
@@ -242,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ScanAndGo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PurchaseProduct.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -257,14 +257,6 @@
     <Page Include="ReportInventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SizeAdd.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Sizes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Categories.xaml">
       <SubType>Designer</SubType>
@@ -380,10 +372,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Sales - Copy.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Sales - Copy.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Sales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

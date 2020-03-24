@@ -11,7 +11,7 @@ namespace ClickOnline.Model
 {
     using System;
     
-    public partial class GetProductList_Result
+    public partial class GetProducts_Result
     {
         public int ProductID { get; set; }
         public string SKUNo { get; set; }
@@ -24,8 +24,8 @@ namespace ClickOnline.Model
         public Nullable<System.DateTime> GoodUntil { get; set; }
         public Nullable<decimal> Tax { get; set; }
         public string Location { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public string ProductCategory { get; set; }
         public string SupplierName { get; set; }
+        public string ProductCategory { get; set; }
+        public Nullable<int> Quantity { get; set; }
     }
 }

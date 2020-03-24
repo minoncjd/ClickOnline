@@ -44,12 +44,6 @@ namespace ClickOnline
             x.ShowDialog();
         }
 
-        private void mahTileSize_Click(object sender, RoutedEventArgs e)
-        {
-            Sizes x = new Sizes();
-            x.ShowDialog();
-        }
-
         private void mahInvoice_Click(object sender, RoutedEventArgs e)
         {
             Invoice x = new Invoice();
@@ -81,6 +75,17 @@ namespace ClickOnline
         }
 
         private void MahPurchases_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MahScanAndGo_Click(object sender, RoutedEventArgs e)
+        {
+            ScanAndGo x = new ScanAndGo();
+            x.ShowDialog();
+        }
+
+        private void MahExit_Click(object sender, RoutedEventArgs e)
         {
 
         }

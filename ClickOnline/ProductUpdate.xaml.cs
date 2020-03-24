@@ -43,7 +43,6 @@ namespace ClickOnline
                 var product = db.Products.Where(m => m.ProductID == productid).FirstOrDefault();
                 tbName.Text = product.ProductName;
                 cbCategory.SelectedValue = product.CategoryID;
-                cbSize.SelectedValue = product.SizeID;
                 tbColor.Text = product.Color;
                 tbSellingPrize.Text = product.SellingPrice.ToString();
                 tbPurchasePrize.Text = product.PurchasePrice.ToString();
@@ -65,7 +64,6 @@ namespace ClickOnline
                     var product = db.Products.Where(m => m.ProductID == productid).FirstOrDefault();
                     product.ProductName = tbName.Text;
                     product.CategoryID = Convert.ToInt32(cbCategory.SelectedValue);
-                    product.SizeID = Convert.ToInt32(cbSize.SelectedValue);
                     product.Color = tbColor.Text;
                     product.SellingPrice = Convert.ToInt32(tbSellingPrize.Text);
                     product.PurchasePrice = Convert.ToInt32(tbPurchasePrize.Text);

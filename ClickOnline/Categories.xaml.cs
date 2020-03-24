@@ -29,12 +29,34 @@ namespace ClickOnline
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            CategoryAdd x = new CategoryAdd();
-            x.ShowDialog();
+            try
+            {
+                using (var db = new ClickOnlineEntities())
+                {
+                    Category x = new Category();
+                    x.ProductCategory = tbCategory.Text;
+                    db.Categories.Add(x);
+                    db.SaveChanges();
+                    MessageBox.Show("successful");
+                    GetCategeries();
+                    tbCategory.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetCategeries();
+            btnAdd.IsEnabled = false;
+            btnUpdate.IsEnabled = true;
+            btnClear.IsEnabled = true;
+        }
+
+        private void GetCategeries()
         {
             List<CategoryViewModel> lCategory = new List<CategoryViewModel>();
             var categories = db.Categories.OrderBy(m => m.ProductCategory).ToList();
@@ -48,8 +70,39 @@ namespace ClickOnline
                 number++;
                 lCategory.Add(cat);
             }
-
             datagridview.ItemsSource = lCategory.ToList();
+        }
+        private void Datagridview_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var x = ((CategoryViewModel)datagridview.SelectedItem);
+            if (x!=null)
+            {
+                btnAdd.IsEnabled = false;
+                btnUpdate.IsEnabled = true;
+                btnClear.IsEnabled = true;
+                tbCategory.Text = x.ProductCategory;
+            }
+        }
+
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            var x = ((CategoryViewModel)datagridview.SelectedItem);
+            var cat = db.Categories.Where(m => m.CategoryID == x.CategoryID).FirstOrDefault();
+            cat.ProductCategory = tbCategory.Text;
+            db.SaveChanges();
+            MessageBox.Show("success");
+            GetCategeries();
+            tbCategory.Text = "";
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            tbCategory.Text = "";
+            btnClear.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnAdd.IsEnabled = true;
+            tbCategory.Focus();
+
         }
     }
 }

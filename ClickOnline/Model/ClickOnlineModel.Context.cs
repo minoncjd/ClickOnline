@@ -28,20 +28,16 @@ namespace ClickOnline.Model
         }
     
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Adjustment> Adjustments { get; set; }
-    
-        public virtual ObjectResult<GetProductList_Result> GetProductList()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductList_Result>("GetProductList");
-        }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
     
         public virtual ObjectResult<GetPurchases_Result> GetPurchases()
         {
@@ -59,6 +55,20 @@ namespace ClickOnline.Model
                 new ObjectParameter("enddate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrders_Result>("GetOrders", startdateParameter, enddateParameter);
+        }
+    
+        public virtual ObjectResult<GetProductList_Result> GetProductList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductList_Result>("GetProductList");
+        }
+    
+        public virtual ObjectResult<GetProducts_Result> GetProducts(string sKUNo)
+        {
+            var sKUNoParameter = sKUNo != null ?
+                new ObjectParameter("SKUNo", sKUNo) :
+                new ObjectParameter("SKUNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProducts_Result>("GetProducts", sKUNoParameter);
         }
     }
 }

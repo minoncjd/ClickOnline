@@ -28,18 +28,66 @@ namespace ClickOnline
             InitializeComponent();
         }
 
+        private void Clear()
+        {
+            tbProductName.Text = "";
+            tbSKU.Text = "";
+            tbDescription.Text = "";
+            tbColor.Text = "";
+            tbSize.Text = "";
+            tbPurchasePrice.Text = "";
+            tbLocation.Text = "";
+            tbQuantity.Text = "";
+            cbSupplier.Text = "";
+            cbCategory.Text = "";
+            dpGoodUntil.SelectedDate = null;
+            tbSellingPrice.Text = "";
+            tbTax.Text = "";
+        }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            //this.Close();
-            ProductAdd x = new ProductAdd();
-            x.ShowDialog();
+            try
+            {
+                if (tbProductName.Text != "" && tbSKU.Text != "" && tbQuantity.Text != "" && tbSellingPrice.Text != "" && tbPurchasePrice.Text != "" && cbCategory.Text != "" && cbSupplier.Text != "")
+                {
+                    Product x = new Product();
+                    x.ProductName = tbProductName.Text;
+                    x.SKUNo = tbSKU.Text;
+                    x.Description = tbDescription.Text;
+                    x.Color = tbColor.Text;
+                    x.CategoryID = Convert.ToInt32(cbCategory.SelectedValue);
+                    x.Size = tbSize.Text;
+                    x.SellingPrice = Convert.ToDecimal(tbSellingPrice.Text);
+                    x.PurchasePrice = Convert.ToDecimal(tbPurchasePrice.Text);
+                    x.GoodUntil = dpGoodUntil.SelectedDate;
+                    x.Tax = tbTax.Text == "" ? (decimal?)null : Convert.ToDecimal(tbTax.Text);
+                    x.Location = tbLocation.Text;
+                    x.Quantity = Convert.ToInt32(tbQuantity.Text);
+                    x.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
+
+                    db.Products.Add(x);
+                    db.SaveChanges();
+                    MessageBox.Show("successful");
+                    Clear();
+                    GetProducts();
+                }
+                else
+                {
+                    MessageBox.Show("complete the required fields");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void GetProducts()
         {
-            try
-            {
-                int prodNumber = 1;
+            //try
+            //{
                 lProduct = new List<ProductViewModel>();
                 var products = db.GetProductList().OrderBy(m => m.ProductName).ToList();
 
@@ -47,58 +95,119 @@ namespace ClickOnline
                 {
                     ProductViewModel product = new ProductViewModel();
                     product.ProductID = x.ProductID;
-                    product.Number = prodNumber;
+                    product.SKUNo = x.SKUNo;
                     product.ProductName = x.ProductName;
-                    product.Color = x.Color;
-                    product.Size = x.ProductSize;
-                    product.Category = x.ProductCategory;
-                    product.Color = x.Color;
-                    product.PurchasePrice = x.PurchasePrice;
-                    product.SellingPrice = x.SellingPrice;
-                    prodNumber++;
                     lProduct.Add(product);
                 }
                 datagridview.ItemsSource = lProduct.ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             GetProducts();
+
+            cbSupplier.ItemsSource = db.Suppliers.OrderBy(m => m.SupplierName).ToList();
+            cbSupplier.DisplayMemberPath = "SupplierName";
+            cbSupplier.SelectedValuePath = "SupplierID";
+
+            cbCategory.ItemsSource = db.Categories.OrderBy(m => m.ProductCategory).ToList();
+            cbCategory.DisplayMemberPath = "ProductCategory";
+            cbCategory.SelectedValuePath = "CategoryID";
+
+            btnAdd.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnClear.IsEnabled = false;
         }
 
-        private void edit_Click(object sender, RoutedEventArgs e)
+        private void Datagridview_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            //this.Close();
             var x = ((ProductViewModel)datagridview.SelectedItem);
-            ProductUpdate xx = new ProductUpdate();
-            xx.productid = x.ProductID;
-            xx.ShowDialog();
+          
+            if (x != null)
+            {
+                var prod = db.Products.Where(m => m.ProductID == x.ProductID).FirstOrDefault();
+                btnAdd.IsEnabled = false;
+                btnUpdate.IsEnabled = true;
+                btnClear.IsEnabled = true;
+                tbSKU.Text = prod.SKUNo;
+                tbColor.Text = prod.Color;
+                tbDescription.Text = prod.Description;
+                tbLocation.Text = prod.Location;
+                tbProductName.Text = prod.ProductName;
+                tbPurchasePrice.Text = prod.PurchasePrice.ToString();
+                tbQuantity.Text = prod.Quantity.ToString();
+                tbSellingPrice.Text = prod.SellingPrice.ToString();
+                tbSize.Text = prod.Size;
+                tbTax.Text = prod.Tax.ToString();
+                dpGoodUntil.SelectedDate = prod.GoodUntil;
+                cbCategory.SelectedValue = prod.CategoryID;
+                cbSupplier.SelectedValue = prod.SupplierID;
+
+            }
         }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            try
             {
-                var keyword = tbSearch.Text;
-                datagridview.ItemsSource = lProduct.Where(m => m.ProductID.ToString().Contains(keyword) || m.ProductName.Contains(keyword) || m.Color.Contains(keyword) || m.Category.Contains(keyword) || m.SKUNo.Contains(keyword) || m.Size.Contains(keyword) ).ToList();
+                var x = ((ProductViewModel)datagridview.SelectedItem);
+                var prod = db.Products.Where(m => m.ProductID == x.ProductID).FirstOrDefault();
+
+                if (tbProductName.Text != "" && tbSKU.Text != "" && tbQuantity.Text != "" && tbSellingPrice.Text != "" && tbPurchasePrice.Text != "" && cbCategory.Text != "" && cbSupplier.Text != "")
+                {
+                    prod.ProductName = tbProductName.Text;
+                    prod.SKUNo = tbSKU.Text;
+                    prod.Description = tbDescription.Text;
+                    prod.Color = tbColor.Text;
+                    prod.CategoryID = Convert.ToInt32(cbCategory.SelectedValue);
+                    prod.Size = tbSize.Text;
+                    prod.SellingPrice = Convert.ToDecimal(tbSellingPrice.Text);
+                    prod.PurchasePrice = Convert.ToDecimal(tbPurchasePrice.Text);
+                    prod.GoodUntil = dpGoodUntil.SelectedDate;
+                    prod.Tax = tbTax.Text == "" ? (decimal?)null : Convert.ToDecimal(tbTax.Text);
+                    prod.Location = tbLocation.Text;
+                    prod.Quantity = Convert.ToInt32(tbQuantity.Text);
+                    prod.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
+                    db.SaveChanges();
+                    MessageBox.Show("successful");
+                    Clear();
+                    GetProducts();
+                }
+                else
+                {
+                    MessageBox.Show("complete the required fields");
+                }
+
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            Clear();
+            btnClear.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnAdd.IsEnabled = true;
+            tbSKU.Focus();
         }
 
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+            var keyword = tbSearch.Text;
             if (tbSearch.Text == "")
             {
                 GetProducts();
             }
-        }
-
-        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            GetProducts();
+            datagridview.ItemsSource = lProduct.Where(m => m.SKUNo.Contains(keyword)).ToList();
         }
     }
 }

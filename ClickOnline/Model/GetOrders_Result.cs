@@ -16,14 +16,14 @@ namespace ClickOnline.Model
         public int OrderID { get; set; }
         public string InvoiceNo { get; set; }
         public string Customer { get; set; }
-        public System.DateTime Date { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
         public string SKUNumber { get; set; }
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string Color { get; set; }
         public string ProductSize { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal Total { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Total { get; set; }
     }
 }

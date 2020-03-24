@@ -30,9 +30,34 @@ namespace ClickOnline
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            SupplierAdd x = new SupplierAdd();
-            x.ShowDialog();
+            try
+            {
+                if (tbSupplier.Text != "")
+                {
+                    Supplier x = new Supplier();
+                    x.SupplierName = tbSupplier.Text;
+                    x.ContactNo = tbContact.Text;
+                    x.ContactPerson = tbContactPerson.Text;
+                    x.Address = tbAddress.Text;
+                    x.FaxNo = tbFax.Text;
+                    x.Email = tbEmail.Text;
+                    x.WhatsApp = tbWhatsApp.Text;
+                    x.Website = tbWebsite.Text;
+                    db.Suppliers.Add(x);
+                    db.SaveChanges();
+                    MessageBox.Show("successful");
+                    GetSuppliers();
+                }
+                else
+                {
+                    MessageBox.Show("complete the required data");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void GetSuppliers()
@@ -49,9 +74,6 @@ namespace ClickOnline
                     supplier.SupplierID = x.SupplierID;
                     supplier.Number = number;
                     supplier.SupplierName = x.SupplierName;
-                    supplier.ContactNo = x.ContactNo;
-                    supplier.ContactPerson = x.ContactPerson;
-                    supplier.Address = x.Address;
                     number++;
                     lSupplier.Add(supplier);
                 }
@@ -66,31 +88,83 @@ namespace ClickOnline
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             GetSuppliers();
-        }
 
-        private void edit_Click(object sender, RoutedEventArgs e)
+            btnAdd.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnClear.IsEnabled = false;
+        }
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             var x = ((SupplierViewModel)datagridview.SelectedItem);
-            SupplierUpdate xx = new SupplierUpdate();
-            xx.supplierid = x.SupplierID;
-            xx.ShowDialog();
-        }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
+            try
             {
-                var keyword = tbSearch.Text;
-                datagridview.ItemsSource = lSupplier.Where(m => m.SupplierName.Contains(keyword) || m.Address.Contains(keyword) || m.ContactPerson.Contains(keyword) || m.ContactNo.Contains(keyword)).ToList();
+                if (tbSupplier.Text != "")
+                {
+                    var supplier = db.Suppliers.Where(m => m.SupplierID == x.SupplierID).FirstOrDefault();
+                    supplier.SupplierName = tbSupplier.Text;
+                    supplier.ContactPerson = tbContactPerson.Text;
+                    supplier.ContactNo = tbContact.Text;
+                    supplier.Address = tbAddress.Text;
+                    supplier.FaxNo = tbFax.Text;
+                    supplier.Email = tbEmail.Text;
+                    supplier.WhatsApp = tbWhatsApp.Text;
+                    supplier.Website = tbWebsite.Text;
+                    db.SaveChanges();
+                    MessageBox.Show("successful");
+                    GetSuppliers();
+                }
+                else
+                {
+                    MessageBox.Show("complete the required data");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            if (tbSearch.Text == "")
+            Clear();
+            btnClear.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnAdd.IsEnabled = true;
+            tbSupplier.Focus();
+        }
+
+        private void Clear()
+        {
+            tbContact.Text = "";
+            tbContactPerson.Text = "";
+            tbEmail.Text = "";
+            tbFax.Text = "";
+            tbSupplier.Text = "";
+            tbWebsite.Text = "";
+            tbWhatsApp.Text = "";
+            tbAddress.Text = "";
+        }
+
+        private void Datagridview_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var x = ((SupplierViewModel)datagridview.SelectedItem);
+            var supplier = db.Suppliers.Where(m => m.SupplierID == x.SupplierID).FirstOrDefault();
+
+            if (x != null)
             {
-                GetSuppliers();
+                btnAdd.IsEnabled = false;
+                btnUpdate.IsEnabled = true;
+                btnClear.IsEnabled = true;
+                tbAddress.Text = supplier.Address;
+                tbContact.Text = supplier.ContactNo;
+                tbContactPerson.Text = supplier.ContactPerson;
+                tbEmail.Text = supplier.Email;
+                tbFax.Text = supplier.FaxNo;
+                tbSupplier.Text = supplier.SupplierName;
+                tbWebsite.Text = supplier.Website;
+                tbWhatsApp.Text = supplier.WhatsApp;
             }
         }
     }

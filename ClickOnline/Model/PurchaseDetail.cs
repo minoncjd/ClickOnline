@@ -30,12 +30,12 @@ namespace ClickOnline.Model
         public Nullable<decimal> Total { get; set; }
         public Nullable<int> LocationID { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Purchase Purchase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Adjustment> Adjustments { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
