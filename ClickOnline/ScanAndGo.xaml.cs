@@ -57,7 +57,15 @@ namespace ClickOnline
                     
                     Inventory x = new Inventory();
                     x.ProductID = product.ProductID;
-                    x.Quantity = Convert.ToInt32(tbQuantity.Text);
+                    if (rbIn.IsChecked==true)
+                    {
+                        x.Quantity = Convert.ToInt32(tbQuantity.Text);
+                    }
+                    else if (rbOut.IsChecked == true)
+                    {
+                        x.Quantity = Convert.ToInt32("-"+tbQuantity.Text);
+                    }
+                   
                     x.Date = DateTime.Now;
                     db.Inventories.Add(x);
                     db.SaveChanges();
@@ -87,6 +95,7 @@ namespace ClickOnline
             dpGoodUntil.SelectedDate = null;
             tbSellingPrice.Text = "";
             tbTax.Text = "";
+            tbRemaningQuantity.Text = "";
 
             tbSku.Text = "";
             tbQuantity.Text = "";
