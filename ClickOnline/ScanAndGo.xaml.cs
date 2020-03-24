@@ -37,36 +37,7 @@ namespace ClickOnline
 
         private void TbSku_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-                var skuno = tbSku.Text.ToUpper();
-                product = db.GetProducts(skuno).FirstOrDefault();
-                if (product != null)
-                {
-                    tbSKU.Text = product.SKUNo;
-                    tbProductName.Text = product.ProductName;
-                    tbDescription.Text = product.Description;
-                    tbColor.Text = product.Color;
-                    tbLocation.Text = product.Location;
-                    tbPurchasePrice.Text = product.PurchasePrice.ToString();
-                    tbRemaningQuantity.Text = product.Quantity.ToString();
-                    tbSellingPrice.Text = product.SellingPrice.ToString();
-                    tbSize.Text = product.Size;
-                    tbTax.Text = product.Tax.ToString();
-                    dpGoodUntil.SelectedDate = product.GoodUntil;
-                    tbCategory.Text = product.ProductCategory;
-                    tbSupplier.Text = product.SupplierName;
-                }
-                else
-                {
-                    Clear();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
+           
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -121,5 +92,45 @@ namespace ClickOnline
             tbQuantity.Text = "";
             rbIn.IsChecked = true;
         }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                try
+                {
+                    var skuno = tbSku.Text.ToUpper();
+                    product = db.GetProducts(skuno).FirstOrDefault();
+                    if (product != null)
+                    {
+                        tbSKU.Text = product.SKUNo;
+                        tbProductName.Text = product.ProductName;
+                        tbDescription.Text = product.Description;
+                        tbColor.Text = product.Color;
+                        tbLocation.Text = product.Location;
+                        tbPurchasePrice.Text = product.PurchasePrice.ToString();
+                        tbRemaningQuantity.Text = product.Quantity.ToString();
+                        tbSellingPrice.Text = product.SellingPrice.ToString();
+                        tbSize.Text = product.Size;
+                        tbTax.Text = product.Tax.ToString();
+                        dpGoodUntil.SelectedDate = product.GoodUntil;
+                        tbCategory.Text = product.ProductCategory;
+                        tbSupplier.Text = product.SupplierName;
+                    }
+                    else
+                    {
+                        Clear();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+        }
+
     }
 }
