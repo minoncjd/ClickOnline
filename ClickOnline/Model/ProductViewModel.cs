@@ -17,6 +17,8 @@ namespace ClickOnline.Model
         public string Category { get; set; }
         public decimal? SellingPrice { get; set; }
         public decimal? PurchasePrice { get; set; }
-      
+
+        public byte[] Image1 { get; set; }
+
     }
 }

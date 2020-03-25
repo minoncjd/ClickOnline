@@ -27,7 +27,7 @@ namespace ClickOnline
         public DateTime enddate;
         ReportDocument report;
 
-        public List<OrderViewModel> lOrderViewModel = new List<OrderViewModel>();
+        public List<GetProductList_Result> lProduct = new List<GetProductList_Result>();
         public List<GetOrders_Result> lSales = new List<GetOrders_Result>();
         public PrintWindow()
         {
@@ -40,10 +40,10 @@ namespace ClickOnline
 
             if (rptid==1)
             {
-                if (lOrderViewModel.Count > 0)
+                if (lProduct.Count > 0)
                 {
                     report = new Reports.InventoryReport();
-                    report.SetDataSource(lOrderViewModel.ToList()); ;
+                    report.SetDataSource(lProduct.ToList()); ;
                     crViewer1.ViewerCore.ReportSource = report;
                 }
 

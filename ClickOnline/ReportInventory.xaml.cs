@@ -23,7 +23,7 @@ namespace ClickOnline
     {
         ClickOnlineEntities db = new ClickOnlineEntities();
         List<ProductViewModel> lProductViewModel = new List<ProductViewModel>();
-        List<OrderViewModel> lOrderViewModel = new List<OrderViewModel>();
+        List<GetProductList_Result> lProduct = new List<GetProductList_Result>();
 
         public ReportInventory()
         {
@@ -32,97 +32,66 @@ namespace ClickOnline
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            lProductViewModel = new List<ProductViewModel>();
-            var products = db.GetProductList().ToList();
-            foreach (var x in products)
-            {
-                ProductViewModel product = new ProductViewModel();
-                product.ProductID = x.ProductID;
-                product.ProductName = x.ProductName + " - " + x.Color + " - " + x.Size;
-                lProductViewModel.Add(product);
-            }
-
-            cbProduct.ItemsSource = lProductViewModel.OrderBy(m => m.ProductName).ToList();
-            cbProduct.DisplayMemberPath = "ProductName";
-            cbProduct.SelectedValuePath = "ProductID";
-
             cbCategory.ItemsSource = db.Categories.OrderBy(m => m.ProductCategory).ToList();
             cbCategory.DisplayMemberPath = "ProductCategory";
             cbCategory.SelectedValuePath = "CategoryID";
-
         }
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            lOrderViewModel = new List<OrderViewModel>();
-
-            int prodNumber = 1;
-            //var purchases = db.GetPurchases().Where(m => m.SKUNumber == keyword).ToList();
-            List<GetPurchases_Result> purchases = new List<GetPurchases_Result>();
-            if (rbSelectAll.IsChecked==true)
+            List<GetProductList_Result> products = new List<GetProductList_Result>();
+            if (rbCategory.IsChecked ==true)
             {
-                purchases = db.GetPurchases().ToList();
-            }
-            else if (rbProduct.IsChecked==true)
-            {
-                var productid = Convert.ToInt32(cbProduct.SelectedValue);
-                purchases = db.GetPurchases().Where(m=>m.ProductID==productid).ToList();
-            }
-            else if (rbCategory.IsChecked == true)
-            {
-                var categoryid = Convert.ToInt32(cbCategory.SelectedValue);
-                purchases = db.GetPurchases().Where(m => m.CategoryID == categoryid).ToList();
+                var cat = cbCategory.Text;
+                products = db.GetProductList().Where(m=>m.ProductCategory == cat).ToList();
             }
             else if (rbSkuNo.IsChecked==true)
             {
-                var skuno = tbSKUNO.Text;
-                purchases = db.GetPurchases().Where(m => m.SKUNumber == skuno).ToList();
+                var sku = tbSKUNO.Text;
+                products = db.GetProductList().Where(m => m.SKUNo == sku).ToList();
             }
-
-            if (purchases.Count() == 0)
+            else if (rbSelectAll.IsChecked==true)
             {
-                MessageBox.Show("no product found");
-                return;
+                products = db.GetProductList().ToList();
             }
-            foreach (var x in purchases)
+           
+            lProduct = new List<GetProductList_Result>();
+            
+            foreach (var x in products)
             {
-                OrderViewModel order = new OrderViewModel();
-                order.ProductID = x.ProductID;
-                order.Number = prodNumber;
-                order.ProductName = x.ProductName;
-                order.Color = x.Color;
-                order.Size = x.ProductSize;
-                order.Category = x.ProductCategory;
-                order.Color = x.Color;
-                order.RemainingQuantity = Convert.ToInt32(x.RemainingStock);
-                order.Quantity = Convert.ToInt32(x.Quantity);
-                order.Supplier = x.SupplierName;
-                order.Price = Convert.ToInt32(x.Price);
-                order.PurchaseDetailID = x.PurchaseDetailsID;
-                order.Location = x.LocationName;
-                order.Sales = x.TotalSales;
-                order.Adjustment = x.Adjustment;
-                order.SKUNo = x.SKUNumber;
-                order.Location = x.LocationName;
-                prodNumber++;
-                lOrderViewModel.Add(order);
+                GetProductList_Result y = new GetProductList_Result();
+                y.ProductID = x.ProductID;
+                y.ProductName = x.ProductName;
+                y.Color = x.Color;
+                y.Description = x.Description;
+                y.GoodUntil = x.GoodUntil;
+                y.Location = x.Location;
+                y.ProductCategory = x.ProductCategory;
+                y.PurchasePrice = x.PurchasePrice;
+                y.Quantity = x.Quantity;
+                y.SellingPrice = x.SellingPrice;
+                y.Size = x.Size;
+                y.SKUNo = x.SKUNo;
+                y.SupplierName = x.SupplierName;
+                y.Tax = x.Tax;
+                lProduct.Add(y);
+    
             }
-            datagridview.ItemsSource = lOrderViewModel.ToList();
+            datagridview.ItemsSource = lProduct.ToList();
         }
 
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
             PrintWindow x = new PrintWindow();
-            x.lOrderViewModel = lOrderViewModel.ToList();
+            x.lProduct = lProduct.ToList();
             x.rptid = 1;
             x.Show();
-            lOrderViewModel.Clear();
+            lProduct.Clear();
         }
 
         private void RbSelectAll_Checked(object sender, RoutedEventArgs e)
         {
             cbCategory.IsEnabled = false;
-            cbProduct.IsEnabled = false;
             tbSKUNO.IsEnabled = false;
         }
 
@@ -130,23 +99,14 @@ namespace ClickOnline
         {
             tbSKUNO.Focus();
             cbCategory.IsEnabled = false;
-            cbProduct.IsEnabled = false;
             tbSKUNO.IsEnabled = true;
         }
 
-        private void RbProduct_Checked(object sender, RoutedEventArgs e)
-        {
-            cbProduct.Focus();
-            cbCategory.IsEnabled = false;
-            cbProduct.IsEnabled = true;
-            tbSKUNO.IsEnabled = false;
-        }
-
+   
         private void RbCategory_Checked(object sender, RoutedEventArgs e)
         {
             cbCategory.Focus();
             cbCategory.IsEnabled = true;
-            cbProduct.IsEnabled = false;
             tbSKUNO.IsEnabled = false;
         }
     }

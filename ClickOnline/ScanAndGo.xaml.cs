@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,8 @@ namespace ClickOnline
     
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            rbIn.IsChecked = true;
+            pic.Source = null;
         }
 
         private void TbSku_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,44 +46,62 @@ namespace ClickOnline
         {
             try
             {
-                if (product.SKUNo != null)
+                if (product.SKUNo == null || product.SKUNo == "" || tbQuantity.Text == "")
                 {
-                    if (rbOut.IsChecked==true)
-                    {
-                        if (Convert.ToInt32(tbQuantity.Text) > Convert.ToInt32(tbRemaningQuantity.Text))
-                        {
-                            MessageBox.Show("not enought stocks");
-                            return;
-                        }
-                    }
-                    
-                    Inventory x = new Inventory();
-                    x.ProductID = product.ProductID;
-                    if (rbIn.IsChecked==true)
-                    {
-                        x.Quantity = Convert.ToInt32(tbQuantity.Text);
-                    }
-                    else if (rbOut.IsChecked == true)
-                    {
-                        x.Quantity = Convert.ToInt32("-"+tbQuantity.Text);
-                    }
-                   
-                    x.Date = DateTime.Now;
-                    db.Inventories.Add(x);
-                    db.SaveChanges();
-                    MessageBox.Show("successful");
-                    Clear();
+                    MessageBox.Show("complete the required data");
+                    return;
                 }
-                
+               
+                if (rbOut.IsChecked==true)
+                {
+                    if (Convert.ToInt32(tbQuantity.Text) > Convert.ToInt32(tbRemaningQuantity.Text))
+                    {
+                        MessageBox.Show("not enought stocks");
+                        return;
+                    }
+                }
+                    
+                Inventory x = new Inventory();
+                x.ProductID = product.ProductID;
+                if (rbIn.IsChecked==true)
+                {
+                    x.Quantity = Convert.ToInt32(tbQuantity.Text);
+                }
+                else if (rbOut.IsChecked == true)
+                {
+                    x.Quantity = Convert.ToInt32("-"+tbQuantity.Text);
+                }
+                   
+                x.Date = DateTime.Now;
+                db.Inventories.Add(x);
+                db.SaveChanges();
+                MessageBox.Show("successful");
+                Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void Clear()
+        private static BitmapImage LoadImage(byte[] imageData)
         {
+            if (imageData == null || imageData.Length == 0) return null;
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
+        }
+        private void Clear()
+        {   
             tbProductName.Text = "";
             tbSKU.Text = "";
             tbDescription.Text = "";
@@ -100,6 +120,7 @@ namespace ClickOnline
             tbSku.Text = "";
             tbQuantity.Text = "";
             rbIn.IsChecked = true;
+            pic.Source = null;
         }
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
@@ -126,6 +147,16 @@ namespace ClickOnline
                         dpGoodUntil.SelectedDate = product.GoodUntil;
                         tbCategory.Text = product.ProductCategory;
                         tbSupplier.Text = product.SupplierName;
+
+                        if (product.Image1 != null)
+                        {
+                            pic.Source = LoadImage(product.Image1);
+                        }
+                        else
+                        {
+                            var uriSource = new Uri(@"/ClickOnline;component/Images/noimage.png", UriKind.Relative);
+                            pic.Source = new BitmapImage(uriSource);
+                        }
                     }
                     else
                     {

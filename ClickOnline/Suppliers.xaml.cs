@@ -150,10 +150,10 @@ namespace ClickOnline
         private void Datagridview_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             var x = ((SupplierViewModel)datagridview.SelectedItem);
-            var supplier = db.Suppliers.Where(m => m.SupplierID == x.SupplierID).FirstOrDefault();
 
             if (x != null)
             {
+                var supplier = db.Suppliers.Where(m => m.SupplierID == x.SupplierID).FirstOrDefault();
                 btnAdd.IsEnabled = false;
                 btnUpdate.IsEnabled = true;
                 btnClear.IsEnabled = true;

@@ -19,13 +19,14 @@ namespace ClickOnline.Model
         public string Description { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }
-        public Nullable<decimal> SellingPrice { get; set; }
-        public Nullable<decimal> PurchasePrice { get; set; }
-        public Nullable<System.DateTime> GoodUntil { get; set; }
-        public Nullable<decimal> Tax { get; set; }
+        public decimal SellingPrice { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public System.DateTime GoodUntil { get; set; }
+        public decimal Tax { get; set; }
         public string Location { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string ProductCategory { get; set; }
         public string SupplierName { get; set; }
+        public byte[] Image1 { get; set; }
     }
 }

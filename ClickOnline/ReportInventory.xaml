@@ -39,8 +39,7 @@
 
                     <RadioButton x:Name="rbSelectAll" Margin="5" Content="Select All" Grid.Column="0" Checked="RbSelectAll_Checked" />
                     <RadioButton x:Name="rbSkuNo" Margin="5" Content="By SKU No" Grid.Column="1" Checked="RbSkuNo_Checked" />
-                    <RadioButton x:Name="rbProduct" Margin="5" Content="By Product" Grid.Column="2" Checked="RbProduct_Checked" />
-                    <RadioButton x:Name="rbCategory" Margin="5" Content="By Category" Grid.Column="3" Checked="RbCategory_Checked" />
+                    <RadioButton x:Name="rbCategory" Margin="5" Content="By Category" Grid.Column="2" Checked="RbCategory_Checked" />
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -52,8 +51,7 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnGenerate" Grid.RowSpan="1"  Grid.Column="0" Margin="5" Content="GENERATE" Click="BtnGenerate_Click" />
                     <TextBox x:Name="tbSKUNO" Grid.Column="1" Margin="5" Controls:TextBoxHelper.Watermark="SKU Number" CharacterCasing="Upper" VerticalContentAlignment="Center" />
-                    <ComboBox x:Name="cbProduct" IsEditable="True" Grid.Column="2" Margin="5" Controls:TextBoxHelper.Watermark="-Select Product-" VerticalContentAlignment="Center" />
-                    <ComboBox x:Name="cbCategory" IsEditable="True" Grid.Column="3" Margin="5" Controls:TextBoxHelper.Watermark="-Select Category-" VerticalContentAlignment="Center" />
+                    <ComboBox x:Name="cbCategory" IsEditable="True" Grid.Column="2" Margin="5" Controls:TextBoxHelper.Watermark="-Select Category-" VerticalContentAlignment="Center" />
 
                 </Grid>
             
@@ -74,19 +72,14 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <DataGrid Grid.Row="1" Margin="5,5.2,4.6,4.8"  VirtualizingStackPanel.IsVirtualizing="False"   x:Name="datagridview" IsReadOnly="True"
-                      RowHeight="30" ColumnWidth="*" FontSize="10" BorderBrush="Black" BorderThickness="1" AutoGenerateColumns="False" SelectionMode="Single" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" Grid.ColumnSpan="2"  >
+                      RowHeight="30" ColumnWidth="*" FontSize="12" BorderBrush="Black" BorderThickness="1" AutoGenerateColumns="False" SelectionMode="Single" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" Grid.ColumnSpan="2"  >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" Width=".2*" Binding="{Binding Number}"/>
-                        <DataGridTextColumn Header="PRODUCT NO" Width=".5*" Binding="{Binding ProductID}"/>
                         <DataGridTextColumn Header="SKU NO" Width=".5*" Binding="{Binding SKUNo}"/>
                         <DataGridTextColumn Header="Product Name" Width="1.2*" Binding="{Binding ProductName}"/>
-                        <DataGridTextColumn Header="LOCATION" Width=".5*" Binding="{Binding Location}"/>
-                        <DataGridTextColumn Header="COLOR" Width=".3*" Binding="{Binding Color}"/>
-                        <DataGridTextColumn Header="SIZE" Width=".3*" Binding="{Binding Size}"/>
-                        <DataGridTextColumn Header="QUANTITY" Width=".4*" Binding="{Binding Quantity}"/>
-                        <DataGridTextColumn Header="SALES" Width=".4*" Binding="{Binding Sales}"/>
-                        <DataGridTextColumn Header="ADJ" Width=".4*" Binding="{Binding Adjustment}"/>
-                        <DataGridTextColumn Header="REMAINING" Width=".4*" Binding="{Binding RemainingQuantity}"/>
+                        <DataGridTextColumn Header="TAX RATE" Width=".5*" Binding="{Binding Tax}"/>
+                        <DataGridTextColumn Header="SELLING PRICE" Width=".5*" Binding="{Binding SellingPrice}"/>
+                        <DataGridTextColumn Header="PURCHASING PRICE" Width=".5*" Binding="{Binding PurchasePrice}"/>
+                        <DataGridTextColumn Header="QUANTITY IN STOCK" Width=".5*" Binding="{Binding Quantity}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

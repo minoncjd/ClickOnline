@@ -1,7 +1,9 @@
 ﻿using ClickOnline.Model;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +45,7 @@ namespace ClickOnline
             dpGoodUntil.SelectedDate = null;
             tbSellingPrice.Text = "";
             tbTax.Text = "";
+            pic.Source = null;
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -65,6 +68,11 @@ namespace ClickOnline
                     x.Quantity = Convert.ToInt32(tbQuantity.Text);
                     x.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
 
+                    if (!String.IsNullOrEmpty(txtPic.Text))
+                    {
+                        x.Image1 = File.ReadAllBytes(txtPic.Text);
+                    }
+
                     db.Products.Add(x);
                     db.SaveChanges();
                     MessageBox.Show("successful");
@@ -86,8 +94,8 @@ namespace ClickOnline
 
         private void GetProducts()
         {
-            //try
-            //{
+            try
+            {
                 lProduct = new List<ProductViewModel>();
                 var products = db.GetProductList().OrderBy(m => m.ProductName).ToList();
 
@@ -97,14 +105,15 @@ namespace ClickOnline
                     product.ProductID = x.ProductID;
                     product.SKUNo = x.SKUNo;
                     product.ProductName = x.ProductName;
+                    product.Image1 = x.Image1;
                     lProduct.Add(product);
                 }
                 datagridview.ItemsSource = lProduct.ToList();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -147,9 +156,35 @@ namespace ClickOnline
                 cbCategory.SelectedValue = prod.CategoryID;
                 cbSupplier.SelectedValue = prod.SupplierID;
 
+                if (x.Image1 != null)
+                {
+                    pic.Source = LoadImage(x.Image1);
+                }
+                else
+                {
+                    var uriSource = new Uri(@"/ClickOnline;component/Images/noimage.png", UriKind.Relative);
+                    pic.Source = new BitmapImage(uriSource);
+                }
             }
         }
 
+        private static BitmapImage LoadImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
+        }
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -172,6 +207,10 @@ namespace ClickOnline
                     prod.Location = tbLocation.Text;
                     prod.Quantity = Convert.ToInt32(tbQuantity.Text);
                     prod.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
+                    if (!String.IsNullOrEmpty(txtPic.Text))
+                    {
+                        prod.Image1 = File.ReadAllBytes(txtPic.Text);
+                    }
                     db.SaveChanges();
                     MessageBox.Show("successful");
                     Clear();
@@ -208,6 +247,24 @@ namespace ClickOnline
                 GetProducts();
             }
             datagridview.ItemsSource = lProduct.Where(m => m.SKUNo.Contains(keyword)).ToList();
+        }
+
+        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.InitialDirectory = @"Desktop";
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+
+
+            if (op.ShowDialog() == true)
+            {
+                txtPic.Text = op.FileName;
+
+                ImageSource imageSource = new BitmapImage(new Uri(txtPic.Text));
+                pic.Source = imageSource;
+
+            }
         }
     }
 }
