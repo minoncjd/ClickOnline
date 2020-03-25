@@ -59,7 +59,7 @@ namespace ClickOnline
         private void GetCategeries()
         {
             List<CategoryViewModel> lCategory = new List<CategoryViewModel>();
-            var categories = db.Categories.OrderBy(m => m.ProductCategory).ToList();
+            var categories = db.Categories.Where(m=>m.IsActive==true).OrderBy(m => m.ProductCategory).ToList();
             int number = 1;
             foreach (var x in categories)
             {
@@ -102,6 +102,18 @@ namespace ClickOnline
             btnUpdate.IsEnabled = false;
             btnAdd.IsEnabled = true;
             tbCategory.Focus();
+
+        }
+
+        private void BtnDisable_Click(object sender, RoutedEventArgs e)
+        {
+            var x = ((CategoryViewModel)datagridview.SelectedItem);
+            var cat = db.Categories.Where(m => m.CategoryID == x.CategoryID).FirstOrDefault();
+            cat.IsActive = false;
+            db.SaveChanges();
+            MessageBox.Show("success");
+            GetCategeries();
+            tbCategory.Text = "";
 
         }
     }

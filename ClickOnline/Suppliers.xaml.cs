@@ -66,7 +66,7 @@ namespace ClickOnline
             {
                 int number = 1;
                 lSupplier = new List<SupplierViewModel>();
-                var suppliers = db.Suppliers.OrderBy(m => m.SupplierName).ToList();
+                var suppliers = db.Suppliers.Where(m=>m.IsActive==true).OrderBy(m => m.SupplierName).ToList();
 
                 foreach (var x in suppliers)
                 {
@@ -165,6 +165,26 @@ namespace ClickOnline
                 tbSupplier.Text = supplier.SupplierName;
                 tbWebsite.Text = supplier.Website;
                 tbWhatsApp.Text = supplier.WhatsApp;
+            }
+        }
+
+        private void BtnDisable_Click(object sender, RoutedEventArgs e)
+        {
+            var x = ((SupplierViewModel)datagridview.SelectedItem);
+
+            try
+            {
+                var supplier = db.Suppliers.Where(m => m.SupplierID == x.SupplierID).FirstOrDefault();
+                supplier.IsActive = false;
+                db.SaveChanges();
+                MessageBox.Show("successful");
+                GetSuppliers();
+               
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -29,6 +29,7 @@ namespace ClickOnline.Model
         public string Email { get; set; }
         public string WhatsApp { get; set; }
         public string Website { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase> Purchases { get; set; }

@@ -71,11 +71,14 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Button FontSize="9" x:Name="btnAdd" Grid.Column="0" Content="ADD" Margin="1"  Click="BtnAdd_Click" />
                 <Button FontSize="9" x:Name="btnUpdate" Grid.Column="1" Content="UPDATE" Margin="1"  Click="BtnUpdate_Click" />
-                <Button FontSize="9" x:Name="btnClear" Grid.Column="2" Content="CLEAR" Margin="1"  Click="BtnClear_Click" />
+                <Button FontSize="9" x:Name="btnDisable" Grid.Column="2" Content="DISABLE" Margin="1"  Click="BtnDisable_Click" />
+
+                <Button FontSize="9" x:Name="btnClear" Grid.Column="3" Content="CLEAR" Margin="1"  Click="BtnClear_Click" />
 
             </Grid>
         </Grid>

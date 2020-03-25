@@ -27,10 +27,8 @@ namespace ClickOnline.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Adjustment> Adjustments { get; set; }
@@ -38,6 +36,8 @@ namespace ClickOnline.Model
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
     
         public virtual ObjectResult<GetPurchases_Result> GetPurchases()
         {

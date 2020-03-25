@@ -20,6 +20,7 @@
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Inventory">
           <Key>
@@ -121,6 +122,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="WhatsApp" Type="nvarchar" MaxLength="50" />
           <Property Name="Website" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <Association Name="FK_Adjustment_PurchaseDetails">
           <End Role="PurchaseDetails" Type="Self.PurchaseDetails" Multiplicity="0..1" />
@@ -293,14 +295,8 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ClickOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ClickOnlineEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="ClickOnlineModel.Category" />
           <EntitySet Name="Purchases" EntityType="ClickOnlineModel.Purchase" />
           <EntitySet Name="PurchaseDetails" EntityType="ClickOnlineModel.PurchaseDetail" />
-          <EntitySet Name="Suppliers" EntityType="ClickOnlineModel.Supplier" />
-          <AssociationSet Name="FK_Purchase_Supplier" Association="ClickOnlineModel.FK_Purchase_Supplier">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Purchase" EntitySet="Purchases" />
-          </AssociationSet>
           <AssociationSet Name="FK_PurchaseDetails_Purchase" Association="ClickOnlineModel.FK_PurchaseDetails_Purchase">
             <End Role="Purchase" EntitySet="Purchases" />
             <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
@@ -332,10 +328,6 @@
             <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
           </AssociationSet>
           <EntitySet Name="Products" EntityType="ClickOnlineModel.Product" />
-          <AssociationSet Name="FK_Product_Category" Association="ClickOnlineModel.FK_Product_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_PurchaseDetails_Product" Association="ClickOnlineModel.FK_PurchaseDetails_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
@@ -347,17 +339,19 @@
           </AssociationSet>
           <FunctionImport Name="GetProductList" ReturnType="Collection(ClickOnlineModel.GetProductList_Result)" />
           <FunctionImport Name="GetProducts" ReturnType="Collection(ClickOnlineModel.GetProducts_Result)">
-            <Parameter Name="SKUNo" Mode="In" Type="String" />
+          <Parameter Name="SKUNo" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Categories" EntityType="ClickOnlineModel.Category" />
+          <EntitySet Name="Suppliers" EntityType="ClickOnlineModel.Supplier" />
+          <AssociationSet Name="FK_Product_Category" Association="ClickOnlineModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Supplier" Association="ClickOnlineModel.FK_Purchase_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CategoryID" />
-          </Key>
-          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="ClickOnlineModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
-        </EntityType>
         <EntityType Name="Purchase">
           <Key>
             <PropertyRef Name="PurchaseID" />
@@ -366,8 +360,8 @@
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="InvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Supplier" Relationship="ClickOnlineModel.FK_Purchase_Supplier" FromRole="Purchase" ToRole="Supplier" />
           <NavigationProperty Name="PurchaseDetails" Relationship="ClickOnlineModel.FK_PurchaseDetails_Purchase" FromRole="Purchase" ToRole="PurchaseDetail" />
+          <NavigationProperty Name="Supplier" Relationship="ClickOnlineModel.FK_Purchase_Supplier" FromRole="Purchase" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="PurchaseDetail">
           <Key>
@@ -387,33 +381,6 @@
           <NavigationProperty Name="Location" Relationship="ClickOnlineModel.FK_PurchaseDetails_Location" FromRole="PurchaseDetail" ToRole="Location" />
           <NavigationProperty Name="Product" Relationship="ClickOnlineModel.FK_PurchaseDetails_Product" FromRole="PurchaseDetail" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="SupplierID" />
-          </Key>
-          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SupplierName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WhatsApp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Purchases" Relationship="ClickOnlineModel.FK_Purchase_Supplier" FromRole="Supplier" ToRole="Purchase" />
-        </EntityType>
-        <Association Name="FK_Purchase_Supplier">
-          <End Type="ClickOnlineModel.Supplier" Role="Supplier" Multiplicity="0..1" />
-          <End Type="ClickOnlineModel.Purchase" Role="Purchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="Purchase">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PurchaseDetails_Purchase">
           <End Type="ClickOnlineModel.Purchase" Role="Purchase" Multiplicity="0..1" />
           <End Type="ClickOnlineModel.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
@@ -576,22 +543,10 @@
           <Property Name="Image1" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Image2" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Image3" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Category" Relationship="ClickOnlineModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="PurchaseDetails" Relationship="ClickOnlineModel.FK_PurchaseDetails_Product" FromRole="Product" ToRole="PurchaseDetail" />
           <NavigationProperty Name="Inventories" Relationship="ClickOnlineModel.FK_Transaction_Product" FromRole="Product" ToRole="Inventory" />
+          <NavigationProperty Name="Category" Relationship="ClickOnlineModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
         </EntityType>
-        <Association Name="FK_Product_Category">
-          <End Type="ClickOnlineModel.Category" Role="Category" Multiplicity="0..1" />
-          <End Type="ClickOnlineModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PurchaseDetails_Product">
           <End Type="ClickOnlineModel.Product" Role="Product" Multiplicity="0..1" />
           <End Type="ClickOnlineModel.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
@@ -660,20 +615,61 @@
           <Property Type="Int32" Name="Quantity" Nullable="true" />
           <Property Type="Binary" Name="Image1" Nullable="true" MaxLength="Max" />
         </ComplexType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Products" Relationship="ClickOnlineModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhatsApp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Purchases" Relationship="ClickOnlineModel.FK_Purchase_Supplier" FromRole="Supplier" ToRole="Purchase" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Type="ClickOnlineModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="ClickOnlineModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Supplier">
+          <End Type="ClickOnlineModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="ClickOnlineModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ClickOnlineModelStoreContainer" CdmEntityContainer="ClickOnlineEntities">
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="ClickOnlineModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Purchases">
             <EntityTypeMapping TypeName="ClickOnlineModel.Purchase">
               <MappingFragment StoreEntitySet="Purchase">
@@ -695,21 +691,6 @@
                 <ScalarProperty Name="SKUNumber" ColumnName="SKUNumber" />
                 <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
                 <ScalarProperty Name="PurchaseDetailsID" ColumnName="PurchaseDetailsID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="ClickOnlineModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -877,6 +858,31 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ClickOnlineModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="ClickOnlineModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
