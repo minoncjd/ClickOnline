@@ -212,12 +212,12 @@ namespace ClickOnline
                     prod.Color = tbColor.Text;
                     prod.CategoryID = Convert.ToInt32(cbCategory.SelectedValue);
                     prod.Size = tbSize.Text;
-                    prod.SellingPrice = Convert.ToDecimal(tbSellingPrice.Text);
-                    prod.PurchasePrice = Convert.ToDecimal(tbPurchasePrice.Text);
+                    prod.SellingPrice = Convert.ToDecimal(tbSellingPrice.Text.Replace("$", ""));
+                    prod.PurchasePrice = Convert.ToDecimal(tbPurchasePrice.Text.Replace("$", ""));
                     prod.GoodUntil = dpGoodUntil.SelectedDate;
                     prod.Tax = tbTax.Text == "" ? (decimal?)null : Convert.ToDecimal(tbTax.Text);
                     prod.Location = tbLocation.Text;
-                    prod.Quantity = Convert.ToInt32(tbQuantity.Text);
+                    //prod.Quantity = Convert.ToInt32(tbQuantity.Text);
                     prod.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
                     if (!String.IsNullOrEmpty(txtPic.Text))
                     {
