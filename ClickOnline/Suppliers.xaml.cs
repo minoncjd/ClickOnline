@@ -43,6 +43,7 @@ namespace ClickOnline
                     x.Email = tbEmail.Text;
                     x.WhatsApp = tbWhatsApp.Text;
                     x.Website = tbWebsite.Text;
+                    x.IsActive = true;
                     db.Suppliers.Add(x);
                     db.SaveChanges();
                     MessageBox.Show("successful");
