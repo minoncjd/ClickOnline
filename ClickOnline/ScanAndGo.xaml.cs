@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -139,9 +140,9 @@ namespace ClickOnline
                         tbDescription.Text = product.Description;
                         tbColor.Text = product.Color;
                         tbLocation.Text = product.Location;
-                        tbPurchasePrice.Text = product.PurchasePrice.ToString();
+                        tbPurchasePrice.Text = Convert.ToDecimal(product.PurchasePrice).ToString("C", new CultureInfo("en-US"));
                         tbRemaningQuantity.Text = product.Quantity.ToString();
-                        tbSellingPrice.Text = product.SellingPrice.ToString();
+                        tbSellingPrice.Text = Convert.ToDecimal(product.SellingPrice).ToString("C", new CultureInfo("en-US"));
                         tbSize.Text = product.Size;
                         tbTax.Text = product.Tax.ToString();
                         dpGoodUntil.SelectedDate = product.GoodUntil;

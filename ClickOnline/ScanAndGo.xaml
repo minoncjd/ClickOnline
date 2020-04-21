@@ -81,9 +81,9 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="SKU:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbSKU" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbSKU" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="PRODUCT NAME:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbProductName" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbProductName" IsReadOnly="True" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -92,7 +92,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="DESCRIPTION:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbDescription" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbDescription" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -102,9 +102,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="SUPPLIER:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbSupplier" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbSupplier" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="CATEORY:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbCategory" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbCategory" Grid.Column="3" IsReadOnly="True" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
@@ -114,9 +114,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="SRP:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbSellingPrice" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbSellingPrice" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="QUANTITY:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbRemaningQuantity" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbRemaningQuantity" IsReadOnly="True" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
 
                 <Grid Grid.Row="4">
@@ -127,9 +127,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap" Margin="3" FontSize="9">PURCHASE PRICE</TextBlock>
-                    <TextBox x:Name="tbPurchasePrice" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbPurchasePrice" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="LOCATION:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbLocation" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbLocation" IsReadOnly="True" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
 
                 <Grid Grid.Row="5">
@@ -140,9 +140,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="TAX %:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbTax" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbTax" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="GOOD UNTIL:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <DatePicker x:Name="dpGoodUntil" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" />
+                    <DatePicker x:Name="dpGoodUntil" IsEnabled="False" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" />
                 </Grid>
 
                 <Grid Grid.Row="6">
@@ -153,9 +153,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"  Content="SIZE:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbSize" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbSize" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="COLOR:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbColor" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbColor" IsReadOnly="True" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
 
                 <Grid Grid.Row="7">

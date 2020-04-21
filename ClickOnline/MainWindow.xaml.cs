@@ -87,7 +87,11 @@ namespace ClickOnline
 
         private void MahExit_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure to exit?", "Exit Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
         }
     }
 }
