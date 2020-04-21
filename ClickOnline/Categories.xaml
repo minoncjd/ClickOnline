@@ -39,7 +39,7 @@
 
                 <Button  x:Name="btnAdd" Grid.Column="0" Content="ADD" Margin="5,5,0,5" Click="BtnAdd_Click" />
                 <Button  x:Name="btnUpdate" Grid.Column="1" Content="UPDATE" Margin="1.5,5,1.5,5"  Click="BtnUpdate_Click" />
-                <Button  x:Name="btnDisable" Grid.Column="2" Content="UPDATE" Margin="1.5,5,1.5,5"  Click="BtnDisable_Click" />
+                <Button  x:Name="btnDisable" Grid.Column="2" Content="DISABLE" Margin="1.5,5,1.5,5"  Click="BtnDisable_Click" />
                 <Button  x:Name="btnClear" Grid.Column="3" Content="CLEAR" Margin="0,5,3,5"  Click="BtnClear_Click" />
 
             </Grid>
