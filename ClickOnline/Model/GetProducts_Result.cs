@@ -28,5 +28,7 @@ namespace ClickOnline.Model
         public string ProductCategory { get; set; }
         public Nullable<int> Quantity { get; set; }
         public byte[] Image1 { get; set; }
+        public Nullable<int> SupplierID { get; set; }
+        public Nullable<int> CategoryID { get; set; }
     }
 }

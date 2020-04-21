@@ -110,7 +110,7 @@
                     <Label Grid.Column="0"  Content="SRP:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
                     <TextBox x:Name="tbSellingPrice" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                     <Label Grid.Column="2"  Content="QUANTITY:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="9" />
-                    <TextBox x:Name="tbQuantity" IsReadOnly="True" Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="tbQuantity"  Grid.Column="3" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" FontSize="12" />
                 </Grid>
 
                 <Grid Grid.Row="8">

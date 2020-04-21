@@ -47,6 +47,7 @@ namespace ClickOnline
             tbSellingPrice.Text = "";
             tbTax.Text = "";
             pic.Source = null;
+            tbQuantity.IsReadOnly = false;
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -66,7 +67,6 @@ namespace ClickOnline
                     x.GoodUntil = dpGoodUntil.SelectedDate;
                     x.Tax = tbTax.Text == "" ? (decimal?)null : Convert.ToDecimal(tbTax.Text);
                     x.Location = tbLocation.Text;
-                    x.Quantity = Convert.ToInt32(tbQuantity.Text);
                     x.SupplierID = Convert.ToInt32(cbSupplier.SelectedValue);
 
                     if (!String.IsNullOrEmpty(txtPic.Text))
@@ -77,6 +77,17 @@ namespace ClickOnline
                     db.Products.Add(x);
                     db.SaveChanges();
                     MessageBox.Show("successful");
+
+                    Inventory xx = new Inventory();
+
+                    xx.ProductID = db.Products.OrderByDescending(m => m.ProductID).Take(1).FirstOrDefault().ProductID;
+                    xx.Quantity = Convert.ToInt32(tbQuantity.Text);     
+                    xx.Date = DateTime.Now;
+                    db.Inventories.Add(xx);
+                    db.SaveChanges();
+
+
+
                     Clear();
                     GetProducts();
                 }
@@ -120,11 +131,11 @@ namespace ClickOnline
         {
             GetProducts();
 
-            cbSupplier.ItemsSource = db.Suppliers.OrderBy(m => m.SupplierName).ToList();
+            cbSupplier.ItemsSource = db.Suppliers.Where(m=>m.IsActive==true).OrderBy(m => m.SupplierName).ToList();
             cbSupplier.DisplayMemberPath = "SupplierName";
             cbSupplier.SelectedValuePath = "SupplierID";
 
-            cbCategory.ItemsSource = db.Categories.OrderBy(m => m.ProductCategory).ToList();
+            cbCategory.ItemsSource = db.Categories.Where(m => m.IsActive == true).OrderBy(m => m.ProductCategory).ToList();
             cbCategory.DisplayMemberPath = "ProductCategory";
             cbCategory.SelectedValuePath = "CategoryID";
 
@@ -139,7 +150,7 @@ namespace ClickOnline
           
             if (x != null)
             {
-                var prod = db.Products.Where(m => m.ProductID == x.ProductID).FirstOrDefault();
+                var prod = db.GetProducts(x.SKUNo).Where(m=>m.ProductID==x.ProductID).FirstOrDefault();
                 btnAdd.IsEnabled = false;
                 btnUpdate.IsEnabled = true;
                 btnClear.IsEnabled = true;
@@ -156,7 +167,7 @@ namespace ClickOnline
                 dpGoodUntil.SelectedDate = prod.GoodUntil;
                 cbCategory.SelectedValue = prod.CategoryID;
                 cbSupplier.SelectedValue = prod.SupplierID;
-
+                tbQuantity.IsReadOnly = true;
                 if (x.Image1 != null)
                 {
                     pic.Source = LoadImage(x.Image1);
